@@ -6,7 +6,7 @@ import TransitionEffect from '@/components/TransitionEffect';
 import { PhoneIcon, EmailIcon, WhatsAppIcon } from '@/components/Icons';
 import emailjs from "@emailjs/browser";
 import { motion } from "framer-motion";
-import ReCAPTCHA from "react-google-recaptcha"; // Importation de ReCAPTCHA
+import ReCAPTCHA from "react-google-recaptcha";
 
 const ContactBlock = ({ href, icon: Icon, text, className }) => (
     <motion.a
@@ -30,7 +30,7 @@ const ContactForm = () => {
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
-    const [recaptchaToken, setRecaptchaToken] = useState(null); // État pour stocker le token reCAPTCHA
+    const [recaptchaToken, setRecaptchaToken] = useState(null);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -38,7 +38,7 @@ const ContactForm = () => {
     };
 
     const handleRecaptchaChange = (value) => {
-        setRecaptchaToken(value); // Met à jour le token reCAPTCHA
+        setRecaptchaToken(value);
     };
 
     const handleSubmit = (e) => {
@@ -61,6 +61,8 @@ const ContactForm = () => {
                 setError("Une erreur s'est produite, veuillez réessayer.");
             });
     };
+
+    console.log("reCAPTCHA site key:", process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY);
 
     return (
         <>
@@ -135,7 +137,7 @@ const ContactForm = () => {
                                         />
                                     </div>
                                     <ReCAPTCHA
-                                        sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY} // Remplacez par votre clé de site reCAPTCHA
+                                        sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
                                         onChange={handleRecaptchaChange}
                                     />
                                     {error && <p className="text-red-500 text-xs italic">{error}</p>}
