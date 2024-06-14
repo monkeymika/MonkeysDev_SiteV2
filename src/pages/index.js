@@ -42,8 +42,8 @@ export default function Home() {
               <Image src={profilePic} alt='MonkeysDev' className='w-full h-auto lg:hidden md:inline-block md:w-full'
                 priority
                 sizes="(max-width: 768px) 100vw,
-              (max-width: 1200px) 50vw,
-              50vw"
+              (max-width: 1200px) 45vw,
+              45vw"
               />
             </div>
             <div className='w-1/2 flex flex-col items-center self-center lg:w-full lg:text-center'>
