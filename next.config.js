@@ -1,6 +1,19 @@
 /** @type {import('next').NextConfig} */
 const isProd = process.env.NODE_ENV === 'production';
 
+module.exports = {
+  async redirects() {
+    return [
+      {
+        source: '/(.*)',
+        destination: '/maintenance',
+        permanent: false,
+      },
+    ];
+  },
+};
+
+
 const nextConfig = {
   reactStrictMode: true,
   async headers() {
