@@ -1,12 +1,12 @@
 import AnimatedText from '@/components/AnimatedText';
 import Layout from '@/components/Layout';
 import Head from 'next/head';
+import Link from 'next/link';
 import React, { useState } from 'react';
 import TransitionEffect from '@/components/TransitionEffect';
 import { PhoneIcon, EmailIcon, WhatsAppIcon } from '@/components/Icons';
 import emailjs from "@emailjs/browser";
 import { motion } from "framer-motion";
-import ReCAPTCHA from "react-google-recaptcha";
 
 const ContactBlock = ({ href, icon: Icon, text, className }) => (
     <motion.a
@@ -30,15 +30,10 @@ const ContactForm = () => {
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
-    const [recaptchaToken, setRecaptchaToken] = useState(null);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData({ ...formData, [name]: value });
-    };
-
-    const handleRecaptchaChange = (value) => {
-        setRecaptchaToken(value);
     };
 
     const handleSubmit = (e) => {
@@ -46,13 +41,7 @@ const ContactForm = () => {
         setIsLoading(true);
         setError(null);
 
-        if (!recaptchaToken) {
-            setError("Veuillez compléter le reCAPTCHA.");
-            setIsLoading(false);
-            return;
-        }
-
-        emailjs.sendForm(process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID, process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID, e.target, process.env.NEXT_PUBLIC_EMAILJS_USER_ID)
+        emailjs.sendForm('NEXT_PUBLIC_EMAILJS_SERVICE_ID', 'NEXT_PUBLIC_EMAILJS_TEMPLATE_ID', e.target, 'NEXT_PUBLIC_EMAILJS_USER_ID')
             .then((result) => {
                 setIsLoading(false);
                 setIsSubmitted(true);
@@ -61,8 +50,6 @@ const ContactForm = () => {
                 setError("Une erreur s'est produite, veuillez réessayer.");
             });
     };
-
-    console.log("reCAPTCHA site key:", process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY);
 
     return (
         <>
@@ -136,10 +123,6 @@ const ContactForm = () => {
                                             required
                                         />
                                     </div>
-                                    <ReCAPTCHA
-                                        sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
-                                        onChange={handleRecaptchaChange}
-                                    />
                                     {error && <p className="text-red-500 text-xs italic">{error}</p>}
                                     <div className="flex items-center justify-center">
                                         <button
