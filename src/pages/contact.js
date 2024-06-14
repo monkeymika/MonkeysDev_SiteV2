@@ -76,7 +76,7 @@ const ContactForm = () => {
                         <ContactBlock className="w-10 md:w-8 " href="mailto:monkeysdev.contact@gmail.com" icon={EmailIcon} text="monkeysdev.contact@gmail.com" />
                         <ContactBlock className="w-10 md:w-8" href="https://wa.me/0744529073" icon={WhatsAppIcon} text="WhatsApp" />
                     </div>
-                    <div className='w-full flex justify-center'>
+                    {/* <div className='w-full flex justify-center'>
                         <div className='relative w-[70%] h-max rounded-2xl border-2 border-solid border-dark bg-light p-8 dark:bg-dark dark:border-light lg:w-full'>
                             <div className='absolute top-0 -right-3 -z-10 w-[101%] h-[103%] rounded-[2rem] bg-dark dark:bg-light' />
                             {!isSubmitted ? (
@@ -140,7 +140,7 @@ const ContactForm = () => {
                                 </div>
                             )}
                         </div>
-                    </div>
+                    </div> */}
                 </Layout>
             </main>
         </>
