@@ -42,10 +42,10 @@ const PolitiqueDeConfidentialite = () => {
                                     </ul>
 
                                     <h2 className="font-bold text-xl mb-4">3. Confidentialité des informations</h2>
-                                    <p className="mb-4">Nous sommes les seuls propriétaires des informations recueillies sur ce site. Vos informations personnelles ne seront pas vendues, échangées, transférées ou données à une autre société pour n'importe quelle raison, sans votre consentement, en dehors de ce qui est nécessaire pour répondre à une demande et/ou une transaction, par exemple pour expédier une commande.</p>
+                                    <p className="mb-4">Nous sommes les seuls propriétaires des informations recueillies sur ce site. Vos informations personnelles ne seront pas vendues, échangées, transférées ou données à une autre société pour n&apos;importe quelle raison, sans votre consentement, en dehors de ce qui est nécessaire pour répondre à une demande et/ou une transaction, par exemple pour expédier une commande.</p>
 
                                     <h2 className="font-bold text-xl mb-4">4. Divulgation à des tiers</h2>
-                                    <p className="mb-4">Nous ne vendons, n'échangeons et ne transférons pas vos informations personnelles identifiables à des tiers. Cela ne comprend pas les tierces parties de confiance qui nous aident à exploiter notre site Web ou à mener nos affaires, tant que ces parties conviennent de garder ces informations confidentielles.</p>
+                                    <p className="mb-4">Nous ne vendons, n&apos;échangeons et ne transférons pas vos informations personnelles identifiables à des tiers. Cela ne comprend pas les tierces parties de confiance qui nous aident à exploiter notre site Web ou à mener nos affaires, tant que ces parties conviennent de garder ces informations confidentielles.</p>
 
                                     <h2 className="font-bold text-xl mb-4">5. Protection des informations</h2>
                                     <p className="mb-4">Nous mettons en œuvre une variété de mesures de sécurité pour préserver la sécurité de vos informations personnelles. Nous utilisons un cryptage à la pointe de la technologie pour protéger les informations sensibles transmises en ligne.</p>
