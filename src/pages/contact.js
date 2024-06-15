@@ -71,7 +71,7 @@ const ContactForm = () => {
             <main className='w-full mb-16 flex flex-col items-center justify-center overflow-hidden dark:text-light'>
                 <Layout className='pt-16'>
                     <AnimatedText text="Contactez-Moi" className='mb-16 lg:!text-7xl sm:mb-8 sm:!text-6xl xs:!text-4xl' />
-                    <div className='w-full flex justify-around mb-16 sm:flex-col sm:items-center sm:gap-10'>
+                    <div className='w-full flex justify-around mt-16 mb-16 sm:flex-col sm:items-center sm:gap-10'>
                         <ContactBlock className="w-10 md:w-8 " href="tel:+0744529073" icon={PhoneIcon} text="+0744529073" />
                         <ContactBlock className="w-10 md:w-8 " href="mailto:monkeysdev.contact@gmail.com" icon={EmailIcon} text="monkeysdev.contact@gmail.com" />
                         <ContactBlock className="w-10 md:w-8" href="https://wa.me/0744529073" icon={WhatsAppIcon} text="WhatsApp" />

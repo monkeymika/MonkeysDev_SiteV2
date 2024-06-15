@@ -64,9 +64,9 @@ const FeaturedProject = ({ type, title, summary, img, link, github }) => {
                     {summary}
                 </p>
                 <div className="mt-2 flex items-center">
-                    <Link href={github} target="_blank" className="w-10">
+                    {/* <Link href={github} target="_blank" className="w-10">
                         <GithubIcon />
-                    </Link>
+                    </Link> */}
                     <Link
                         href={link}
                         target="_blank"
@@ -131,9 +131,9 @@ const Project = ({ title, type, img, link, github }) => {
                     >
                         Voir
                     </Link>
-                    <Link href={github} target="_blank" className="w-8 md:w-6">
+                    {/* <Link href={github} target="_blank" className="w-8 md:w-6">
                         <GithubIcon />
-                    </Link>
+                    </Link> */}
                 </div>
             </div>
         </article>
@@ -181,7 +181,7 @@ const Portfolio = () => {
                                 title="Au Petit Gourmet"
                                 img={project4}
                                 summary="Un site de restaurant avec des fonctionnalités de réservation en ligne, des menus interactifs, et des galeries de photos pour attirer les clients."
-                                link="/"
+                                link="https://aupetitgourmet.fr/"
                                 github="/"
                                 type="Restaurant"
                             />
@@ -191,7 +191,7 @@ const Portfolio = () => {
                                 title="Hire"
                                 img={project3}
                                 summary="Une application mobile pour faciliter la recherche et l'embauche de talents, avec des fonctionnalités de messagerie et de gestion de projets."
-                                link="/"
+                                link="https://hire-app.fr/"
                                 github="/"
                                 type="Présentation d'une application mobile"
                             />
@@ -202,7 +202,7 @@ const Portfolio = () => {
                                 title="Toshokan"
                                 img={project5}
                                 summary="Toshokan, un site conçu pour présenter une application mobile dédiée à la gestion des collections de mangas. Cette application permet aux utilisateurs de suivre leurs lectures, découvrir de nouveaux titres, et gérer leur bibliothèque personnelle de mangas avec une interface intuitive et des fonctionnalités avancées."
-                                link="/"
+                                link="https://toshokan-12c9e.web.app/home"
                                 github="/"
                                 type="Présentation d'une application mobile"
                             />
@@ -213,7 +213,7 @@ const Portfolio = () => {
                                 title="Tokdem"
                                 img={project2}
                                 summary="Tokdem, un site de présentation d'une application mobile innovante pour la communication interne des entreprises. Elle permet de diffuser des messages, d'échanger via messagerie, de gérer une base documentaire, de proposer des missions et d'utiliser un chatbot IA. Tokdem améliore l'engagement et la fluidité de la communication au sein des équipes."
-                                link="/"
+                                link="https://tokdem.com/"
                                 github="/"
                                 type="Présentation d'une application mobile"
                             />
@@ -223,7 +223,7 @@ const Portfolio = () => {
                                 title="Vandoeuvre Boxe"
                                 img={project6}
                                 summary="Un site web pour le club de boxe de Vandoeuvre, présentant les horaires, les entraîneurs, et les événements à venir. Inclut également une galerie de photos et des témoignages."
-                                link="/"
+                                link="https://vandoeuvre-boxe.fr/"
                                 github="/"
                                 type="Site du club de boxe de Vandoeuvre"
                             />
