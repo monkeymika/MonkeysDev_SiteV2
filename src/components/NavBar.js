@@ -82,13 +82,13 @@ const NavBar = () => {
                 </nav>
 
                 <nav className='flex items-center justify-center flex-wrap'>
-                    <motion.a href="https://twitter.com" target={"_blank"}
+                    <motion.a href="https://www.linkedin.com/in/michael-aubras-6324a61b0/" target={"_blank"}
                         whileHover={{ y: -2 }}
                         whileTap={{ scale: 0.9 }}
                         className='w-6 mx-3'>
-                        <TwitterIcon />
+                        <LinkedInIcon />
                     </motion.a>
-                    <motion.a href="https://twitter.com" target={"_blank"}
+                    <motion.a href="https://github.com/monkeymika" target={"_blank"}
                         whileHover={{ y: -2 }}
                         whileTap={{ scale: 0.9 }}
                         className='w-6 mx-3'>
@@ -151,13 +151,13 @@ const NavBar = () => {
                                 className='w-6 mr-3 sm:mx-1'>
                                 <TwitterIcon />
                             </motion.a> */}
-                            <motion.a href="https://twitter.com" target={"_blank"}
+                            <motion.a href="https://github.com/monkeymika" target={"_blank"}
                                 whileHover={{ y: -2 }}
                                 whileTap={{ scale: 0.9 }}
                                 className='w-6 mx-3 bg-light rounded-full dark:bg-dark sm:mx-1'>
                                 <GithubIcon />
                             </motion.a>
-                            <motion.a href="https://twitter.com" target={"_blank"}
+                            <motion.a href="https://www.linkedin.com/in/michael-aubras-6324a61b0/" target={"_blank"}
                                 whileHover={{ y: -2 }}
                                 whileTap={{ scale: 0.9 }}
                                 className='w-6 mx-3 sm:mx-1'>

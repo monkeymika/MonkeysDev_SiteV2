@@ -1,12 +1,12 @@
 import AnimatedText from '@/components/AnimatedText';
 import Layout from '@/components/Layout';
 import Head from 'next/head';
-import Link from 'next/link';
 import React, { useState } from 'react';
 import TransitionEffect from '@/components/TransitionEffect';
 import { PhoneIcon, EmailIcon, WhatsAppIcon } from '@/components/Icons';
 import emailjs from "@emailjs/browser";
 import { motion } from "framer-motion";
+import ReCAPTCHA from "react-google-recaptcha";
 
 const ContactBlock = ({ href, icon: Icon, text, className }) => (
     <motion.a
@@ -30,10 +30,15 @@ const ContactForm = () => {
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
+    const [recaptchaToken, setRecaptchaToken] = useState(null);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData({ ...formData, [name]: value });
+    };
+
+    const handleRecaptchaChange = (value) => {
+        setRecaptchaToken(value);
     };
 
     const handleSubmit = (e) => {
@@ -41,7 +46,18 @@ const ContactForm = () => {
         setIsLoading(true);
         setError(null);
 
-        emailjs.sendForm('NEXT_PUBLIC_EMAILJS_SERVICE_ID', 'NEXT_PUBLIC_EMAILJS_TEMPLATE_ID', e.target, 'NEXT_PUBLIC_EMAILJS_USER_ID')
+        if (!recaptchaToken) {
+            setError("Veuillez compléter le reCAPTCHA.");
+            setIsLoading(false);
+            return;
+        }
+
+        emailjs.sendForm(
+            process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID,
+            process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID,
+            e.target,
+            process.env.NEXT_PUBLIC_EMAILJS_USER_ID
+        )
             .then((result) => {
                 setIsLoading(false);
                 setIsSubmitted(true);
@@ -61,7 +77,6 @@ const ContactForm = () => {
                 <meta name="description" content="Contactez MonkeysDev, développeur web et designer UI/UX à Nancy. Remplissez le formulaire de contact ou utilisez les informations fournies pour nous joindre directement." />
                 <meta name="author" content="MonkeysDev" />
 
-                {/* Balises Open Graph pour Facebook et LinkedIn */}
                 <meta property="og:title" content="MonkeysDev | Contact" />
                 <meta property="og:description" content="Contactez MonkeysDev, développeur web et designer UI/UX à Nancy. Remplissez le formulaire de contact ou utilisez les informations fournies pour nous joindre directement." />
                 <meta property="og:image" content="/images/profile/MonkeyDevelopper_fade.png" />
@@ -76,7 +91,7 @@ const ContactForm = () => {
                         <ContactBlock className="w-10 md:w-8 " href="mailto:monkeysdev.contact@gmail.com" icon={EmailIcon} text="monkeysdev.contact@gmail.com" />
                         <ContactBlock className="w-10 md:w-8" href="https://wa.me/0744529073" icon={WhatsAppIcon} text="WhatsApp" />
                     </div>
-                    {/* <div className='w-full flex justify-center'>
+                    <div className='w-full flex justify-center'>
                         <div className='relative w-[70%] h-max rounded-2xl border-2 border-solid border-dark bg-light p-8 dark:bg-dark dark:border-light lg:w-full'>
                             <div className='absolute top-0 -right-3 -z-10 w-[101%] h-[103%] rounded-[2rem] bg-dark dark:bg-light' />
                             {!isSubmitted ? (
@@ -123,6 +138,10 @@ const ContactForm = () => {
                                             required
                                         />
                                     </div>
+                                    <ReCAPTCHA
+                                        sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}  // Remplacez par votre clé de site reCAPTCHA
+                                        onChange={handleRecaptchaChange}
+                                    />
                                     {error && <p className="text-red-500 text-xs italic">{error}</p>}
                                     <div className="flex items-center justify-center">
                                         <button
@@ -140,7 +159,7 @@ const ContactForm = () => {
                                 </div>
                             )}
                         </div>
-                    </div> */}
+                    </div>
                 </Layout>
             </main>
         </>

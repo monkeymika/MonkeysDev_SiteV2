@@ -1,25 +1,11 @@
-/** @type {import('next').NextConfig} */
 const isProd = process.env.NODE_ENV === 'production';
 
 module.exports = {
-  async redirects() {
-    return [
-      {
-        source: '/(.*)',
-        destination: '/maintenance',
-        permanent: false,
-      },
-    ];
-  },
-};
-
-
-const nextConfig = {
   reactStrictMode: true,
   async headers() {
     return [
       {
-        source: '/(.*)', // Applique les en-têtes à toutes les pages
+        source: '/(.*)',
         headers: [
           {
             key: 'Content-Security-Policy',
@@ -29,7 +15,7 @@ const nextConfig = {
               style-src 'self' 'unsafe-inline';
               img-src 'self' data:;
               font-src 'self';
-              connect-src 'self';
+              connect-src 'self' https://api.emailjs.com;
               frame-src https://www.google.com https://www.recaptcha.net;
             `.replace(/\n/g, ''), // Supprime les retours à la ligne pour éviter les erreurs
           },
@@ -58,5 +44,3 @@ const nextConfig = {
     ];
   },
 };
-
-module.exports = nextConfig;
