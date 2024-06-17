@@ -6,7 +6,6 @@ import TransitionEffect from '@/components/TransitionEffect';
 import { PhoneIcon, EmailIcon, WhatsAppIcon } from '@/components/Icons';
 import emailjs from "@emailjs/browser";
 import { motion } from "framer-motion";
-import ReCAPTCHA from "react-google-recaptcha"; // Importation de ReCAPTCHA
 
 const ContactBlock = ({ href, icon: Icon, text, className }) => (
     <motion.a
@@ -30,15 +29,10 @@ const ContactForm = () => {
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
-    const [recaptchaToken, setRecaptchaToken] = useState(null); // État pour stocker le token reCAPTCHA
 
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData({ ...formData, [name]: value });
-    };
-
-    const handleRecaptchaChange = (value) => {
-        setRecaptchaToken(value); // Met à jour le token reCAPTCHA
     };
 
     const handleSubmit = async (e) => {
@@ -46,46 +40,19 @@ const ContactForm = () => {
         setIsLoading(true);
         setError(null);
 
-        if (!recaptchaToken) {
-            setError("Veuillez compléter le reCAPTCHA.");
-            setIsLoading(false);
-            return;
-        }
-
-        try {
-            const recaptchaResponse = await fetch('/api/verify-recaptcha', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ token: recaptchaToken }),
-            });
-
-            const recaptchaData = await recaptchaResponse.json();
-
-            if (!recaptchaData.success) {
-                setError("La vérification reCAPTCHA a échoué. Veuillez réessayer.");
+        emailjs.sendForm(
+            process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID,
+            process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID,
+            e.target,
+            process.env.NEXT_PUBLIC_EMAILJS_USER_ID
+        )
+            .then((result) => {
                 setIsLoading(false);
-                return;
-            }
-
-            emailjs.sendForm(
-                process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID,
-                process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID,
-                e.target,
-                process.env.NEXT_PUBLIC_EMAILJS_USER_ID
-            )
-                .then((result) => {
-                    setIsLoading(false);
-                    setIsSubmitted(true);
-                }, (error) => {
-                    setIsLoading(false);
-                    setError("Une erreur s'est produite, veuillez réessayer.");
-                });
-        } catch (error) {
-            setError("Une erreur s'est produite, veuillez réessayer.");
-            setIsLoading(false);
-        }
+                setIsSubmitted(true);
+            }, (error) => {
+                setIsLoading(false);
+                setError("Une erreur s'est produite, veuillez réessayer.");
+            });
     };
 
     return (
@@ -160,10 +127,6 @@ const ContactForm = () => {
                                             required
                                         />
                                     </div>
-                                    <ReCAPTCHA
-                                        sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
-                                        onChange={handleRecaptchaChange}
-                                    />
                                     {error && <p className="text-red-500 text-xs italic">{error}</p>}
                                     <div className="flex items-center justify-center">
                                         <button

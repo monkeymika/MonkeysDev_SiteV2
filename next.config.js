@@ -6,7 +6,6 @@ module.exports = {
     NEXT_PUBLIC_EMAILJS_SERVICE_ID: process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID,
     NEXT_PUBLIC_EMAILJS_TEMPLATE_ID: process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID,
     NEXT_PUBLIC_EMAILJS_USER_ID: process.env.NEXT_PUBLIC_EMAILJS_USER_ID,
-    NEXT_PUBLIC_RECAPTCHA_SITE_KEY: process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY,
   },
   async headers() {
     return [
@@ -22,7 +21,6 @@ module.exports = {
               img-src 'self' data:;
               font-src 'self';
               connect-src 'self' https://api.emailjs.com;
-              frame-src https://www.google.com https://www.recaptcha.net;
             `.replace(/\n/g, ''), // Supprime les retours à la ligne pour éviter les erreurs
           },
           {
