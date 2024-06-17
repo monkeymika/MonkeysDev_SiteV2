@@ -2,6 +2,12 @@ const isProd = process.env.NODE_ENV === 'production';
 
 module.exports = {
   reactStrictMode: true,
+  env: {
+    NEXT_PUBLIC_EMAILJS_SERVICE_ID: process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID,
+    NEXT_PUBLIC_EMAILJS_TEMPLATE_ID: process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID,
+    NEXT_PUBLIC_EMAILJS_USER_ID: process.env.NEXT_PUBLIC_EMAILJS_USER_ID,
+    NEXT_PUBLIC_RECAPTCHA_SITE_KEY: process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY,
+  },
   async headers() {
     return [
       {
@@ -11,11 +17,11 @@ module.exports = {
             key: 'Content-Security-Policy',
             value: `
               default-src 'self';
-              script-src 'self' https://www.google.com https://www.gstatic.com ${isProd ? '' : "'unsafe-inline' 'unsafe-eval'"} 'sha256-7QsyOfZXXUv80de4pH2DRXOL35PdA0yns8TFa67O1Lg=';
+              script-src 'self' https://www.google.com https://www.gstatic.com ${isProd ? '' : "'unsafe-inline' 'unsafe-eval'"};
               style-src 'self' 'unsafe-inline';
               img-src 'self' data:;
               font-src 'self';
-              connect-src 'self';
+              connect-src 'self' https://api.emailjs.com;
               frame-src https://www.google.com https://www.recaptcha.net;
             `.replace(/\n/g, ''), // Supprime les retours à la ligne pour éviter les erreurs
           },

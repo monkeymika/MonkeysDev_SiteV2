@@ -6,7 +6,7 @@ import TransitionEffect from '@/components/TransitionEffect';
 import { PhoneIcon, EmailIcon, WhatsAppIcon } from '@/components/Icons';
 import emailjs from "@emailjs/browser";
 import { motion } from "framer-motion";
-import ReCAPTCHA from "react-google-recaptcha";
+import ReCAPTCHA from "react-google-recaptcha"; // Importation de ReCAPTCHA
 
 const ContactBlock = ({ href, icon: Icon, text, className }) => (
     <motion.a
@@ -30,7 +30,7 @@ const ContactForm = () => {
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
-    const [recaptchaToken, setRecaptchaToken] = useState(null);
+    const [recaptchaToken, setRecaptchaToken] = useState(null); // État pour stocker le token reCAPTCHA
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -38,7 +38,7 @@ const ContactForm = () => {
     };
 
     const handleRecaptchaChange = (value) => {
-        setRecaptchaToken(value);
+        setRecaptchaToken(value); // Met à jour le token reCAPTCHA
     };
 
     const handleSubmit = (e) => {
@@ -77,6 +77,7 @@ const ContactForm = () => {
                 <meta name="description" content="Contactez MonkeysDev, développeur web et designer UI/UX à Nancy. Remplissez le formulaire de contact ou utilisez les informations fournies pour nous joindre directement." />
                 <meta name="author" content="MonkeysDev" />
 
+                {/* Balises Open Graph pour Facebook et LinkedIn */}
                 <meta property="og:title" content="MonkeysDev | Contact" />
                 <meta property="og:description" content="Contactez MonkeysDev, développeur web et designer UI/UX à Nancy. Remplissez le formulaire de contact ou utilisez les informations fournies pour nous joindre directement." />
                 <meta property="og:image" content="/images/profile/MonkeyDevelopper_fade.png" />
@@ -139,7 +140,7 @@ const ContactForm = () => {
                                         />
                                     </div>
                                     <ReCAPTCHA
-                                        sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}  // Remplacez par votre clé de site reCAPTCHA
+                                        sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
                                         onChange={handleRecaptchaChange}
                                     />
                                     {error && <p className="text-red-500 text-xs italic">{error}</p>}
