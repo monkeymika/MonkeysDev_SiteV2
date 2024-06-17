@@ -5,17 +5,17 @@ module.exports = {
   async headers() {
     return [
       {
-        source: '/(.*)',
+        source: '/(.*)', // Applique les en-têtes à toutes les pages
         headers: [
           {
             key: 'Content-Security-Policy',
             value: `
               default-src 'self';
-              script-src 'self' https://www.google.com https://www.gstatic.com ${isProd ? '' : "'unsafe-inline' 'unsafe-eval'"};
+              script-src 'self' https://www.google.com https://www.gstatic.com ${isProd ? '' : "'unsafe-inline' 'unsafe-eval'"} 'sha256-7QsyOfZXXUv80de4pH2DRXOL35PdA0yns8TFa67O1Lg=';
               style-src 'self' 'unsafe-inline';
               img-src 'self' data:;
               font-src 'self';
-              connect-src 'self' https://api.emailjs.com;
+              connect-src 'self';
               frame-src https://www.google.com https://www.recaptcha.net;
             `.replace(/\n/g, ''), // Supprime les retours à la ligne pour éviter les erreurs
           },
