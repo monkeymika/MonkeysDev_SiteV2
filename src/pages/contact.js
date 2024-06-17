@@ -41,10 +41,10 @@ const ContactForm = () => {
         setError(null);
 
         emailjs.sendForm(
-            process.env.SERVICE_ID,
-            process.env.TEMPLATE_ID,
+            process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID,
+            process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID,
             e.target,
-            process.env.USER_ID
+            process.env.NEXT_PUBLIC_EMAILJS_USER_ID
         )
             .then((result) => {
                 setIsLoading(false);
@@ -70,6 +70,7 @@ const ContactForm = () => {
                 <meta property="og:description" content="Contactez MonkeysDev, développeur web et designer UI/UX à Nancy. Remplissez le formulaire de contact ou utilisez les informations fournies pour nous joindre directement." />
                 <meta property="og:image" content="/images/profile/MonkeyDevelopper_fade.png" />
                 <meta property="og:url" content="https://www.monkeysdev.fr/contact" />
+                <script src="https://www.google.com/recaptcha/api.js" async defer></script>
             </Head>
             <TransitionEffect />
             <main className='w-full mb-16 flex flex-col items-center justify-center overflow-hidden dark:text-light'>
@@ -127,6 +128,7 @@ const ContactForm = () => {
                                             required
                                         />
                                     </div>
+                                    <div className="g-recaptcha" data-sitekey={process.env.RECAPTCHA_SITE_KEY}></div>
                                     {error && <p className="text-red-500 text-xs italic">{error}</p>}
                                     <div className="flex items-center justify-center">
                                         <button
