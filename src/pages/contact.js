@@ -41,7 +41,7 @@ const ContactForm = () => {
         setRecaptchaToken(value); // Met à jour le token reCAPTCHA
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         setIsLoading(true);
         setError(null);
@@ -52,19 +52,40 @@ const ContactForm = () => {
             return;
         }
 
-        emailjs.sendForm(
-            process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID,
-            process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID,
-            e.target,
-            process.env.NEXT_PUBLIC_EMAILJS_USER_ID
-        )
-            .then((result) => {
-                setIsLoading(false);
-                setIsSubmitted(true);
-            }, (error) => {
-                setIsLoading(false);
-                setError("Une erreur s'est produite, veuillez réessayer.");
+        try {
+            const recaptchaResponse = await fetch('/api/verify-recaptcha', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ token: recaptchaToken }),
             });
+
+            const recaptchaData = await recaptchaResponse.json();
+
+            if (!recaptchaData.success) {
+                setError("La vérification reCAPTCHA a échoué. Veuillez réessayer.");
+                setIsLoading(false);
+                return;
+            }
+
+            emailjs.sendForm(
+                process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID,
+                process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID,
+                e.target,
+                process.env.NEXT_PUBLIC_EMAILJS_USER_ID
+            )
+                .then((result) => {
+                    setIsLoading(false);
+                    setIsSubmitted(true);
+                }, (error) => {
+                    setIsLoading(false);
+                    setError("Une erreur s'est produite, veuillez réessayer.");
+                });
+        } catch (error) {
+            setError("Une erreur s'est produite, veuillez réessayer.");
+            setIsLoading(false);
+        }
     };
 
     return (
