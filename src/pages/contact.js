@@ -35,16 +35,16 @@ const ContactForm = () => {
         setFormData({ ...formData, [name]: value });
     };
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
         setIsLoading(true);
         setError(null);
 
         emailjs.sendForm(
-            process.env.EMAILJS_SERVICE_ID,
-            process.env.EMAILJS_TEMPLATE_ID,
+            process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID,
+            process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID,
             e.target,
-            process.env.EMAILJS_USER_ID
+            process.env.NEXT_PUBLIC_EMAILJS_USER_ID
         )
             .then((result) => {
                 setIsLoading(false);
@@ -70,7 +70,6 @@ const ContactForm = () => {
                 <meta property="og:description" content="Contactez MonkeysDev, développeur web et designer UI/UX à Nancy. Remplissez le formulaire de contact ou utilisez les informations fournies pour nous joindre directement." />
                 <meta property="og:image" content="/images/profile/MonkeyDevelopper_fade.png" />
                 <meta property="og:url" content="https://www.monkeysdev.fr/contact" />
-                <script src="https://www.google.com/recaptcha/api.js" async defer></script>
             </Head>
             <TransitionEffect />
             <main className='w-full mb-16 flex flex-col items-center justify-center overflow-hidden dark:text-light'>
@@ -81,7 +80,7 @@ const ContactForm = () => {
                         <ContactBlock className="w-10 md:w-8 " href="mailto:monkeysdev.contact@gmail.com" icon={EmailIcon} text="monkeysdev.contact@gmail.com" />
                         <ContactBlock className="w-10 md:w-8" href="https://wa.me/0744529073" icon={WhatsAppIcon} text="WhatsApp" />
                     </div>
-                    {/* <div className='w-full flex justify-center'>
+                    <div className='w-full flex justify-center'>
                         <div className='relative w-[70%] h-max rounded-2xl border-2 border-solid border-dark bg-light p-8 dark:bg-dark dark:border-light lg:w-full'>
                             <div className='absolute top-0 -right-3 -z-10 w-[101%] h-[103%] rounded-[2rem] bg-dark dark:bg-light' />
                             {!isSubmitted ? (
@@ -128,7 +127,6 @@ const ContactForm = () => {
                                             required
                                         />
                                     </div>
-                                    <div className="g-recaptcha" data-sitekey={process.env.RECAPTCHA_SITE_KEY}></div>
                                     {error && <p className="text-red-500 text-xs italic">{error}</p>}
                                     <div className="flex items-center justify-center">
                                         <button
@@ -146,7 +144,7 @@ const ContactForm = () => {
                                 </div>
                             )}
                         </div>
-                    </div> */}
+                    </div>
                 </Layout>
             </main>
         </>
