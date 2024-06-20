@@ -1,11 +1,12 @@
 import AnimatedText from '@/components/AnimatedText';
 import Layout from '@/components/Layout';
 import Head from 'next/head';
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import TransitionEffect from '@/components/TransitionEffect';
 import { PhoneIcon, EmailIcon, WhatsAppIcon } from '@/components/Icons';
 import emailjs from "@emailjs/browser";
 import { motion } from "framer-motion";
+import ReCAPTCHA from "react-google-recaptcha";
 
 const ContactBlock = ({ href, icon: Icon, text, className }) => (
     <motion.a
@@ -29,16 +30,24 @@ const ContactForm = () => {
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
+    const recaptchaRef = useRef(null);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData({ ...formData, [name]: value });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         setIsLoading(true);
         setError(null);
+
+        const token = recaptchaRef.current.getValue();
+        if (!token) {
+            setError("Veuillez compléter le reCAPTCHA.");
+            setIsLoading(false);
+            return;
+        }
 
         emailjs.sendForm(
             process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID,
@@ -53,6 +62,8 @@ const ContactForm = () => {
                 setIsLoading(false);
                 setError("Une erreur s'est produite, veuillez réessayer.");
             });
+
+        recaptchaRef.current.reset();
     };
 
     return (
@@ -80,7 +91,7 @@ const ContactForm = () => {
                         <ContactBlock className="w-10 md:w-8 " href="mailto:monkeysdev.contact@gmail.com" icon={EmailIcon} text="monkeysdev.contact@gmail.com" />
                         <ContactBlock className="w-10 md:w-8" href="https://wa.me/0744529073" icon={WhatsAppIcon} text="WhatsApp" />
                     </div>
-                    {/* <div className='w-full flex justify-center'>
+                    <div className='w-full flex justify-center'>
                         <div className='relative w-[70%] h-max rounded-2xl border-2 border-solid border-dark bg-light p-8 dark:bg-dark dark:border-light lg:w-full'>
                             <div className='absolute top-0 -right-3 -z-10 w-[101%] h-[103%] rounded-[2rem] bg-dark dark:bg-light' />
                             {!isSubmitted ? (
@@ -127,6 +138,15 @@ const ContactForm = () => {
                                             required
                                         />
                                     </div>
+                                    <div className="w-full flex sm:justify-center">
+                                        <div className=" pb-5 scale-100 md:scale-90 sm:scale-75 xs:scale-60">
+                                            <ReCAPTCHA
+                                                ref={recaptchaRef}
+                                                sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
+                                            />
+                                        </div>
+                                    </div>
+
                                     {error && <p className="text-red-500 text-xs italic">{error}</p>}
                                     <div className="flex items-center justify-center">
                                         <button
@@ -144,7 +164,7 @@ const ContactForm = () => {
                                 </div>
                             )}
                         </div>
-                    </div> */}
+                    </div>
                 </Layout>
             </main>
         </>
