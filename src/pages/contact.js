@@ -81,6 +81,9 @@ const ContactForm = () => {
                 <meta property="og:description" content="Contactez MonkeysDev, développeur web et designer UI/UX à Nancy. Remplissez le formulaire de contact ou utilisez les informations fournies pour nous joindre directement." />
                 <meta property="og:image" content="/images/profile/MonkeyDevelopper_fade.png" />
                 <meta property="og:url" content="https://www.monkeysdev.fr/contact" />
+
+                <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
             </Head>
             <TransitionEffect />
             <main className='w-full mb-16 flex flex-col items-center justify-center overflow-hidden dark:text-light'>

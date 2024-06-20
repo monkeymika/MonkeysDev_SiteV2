@@ -1,3 +1,4 @@
+// pages/_app.js
 import NavBar from '@/components/NavBar';
 import Logo from '@/components/Logo';
 import '@/styles/globals.css';
@@ -6,11 +7,14 @@ import Head from 'next/head';
 import Footer from '@/components/Footer';
 import { AnimatePresence } from 'framer-motion';
 import { useRouter } from 'next/router';
+import GoogleAnalytics from '@/components/GoogleAnalytics';
 
 const montserrat = Montserrat({
   subsets: ["latin"],
   variable: "--font-mont"
 });
+
+const GA_TRACKING_ID = 'G-VYGX0SP46J'; // Remplacez par votre propre ID de suivi
 
 export default function App({ Component, pageProps }) {
   const router = useRouter();
@@ -32,6 +36,8 @@ export default function App({ Component, pageProps }) {
         <title>MonkeysDev</title>
       </Head>
       <link rel="icon" href="/favicon.ico" />
+
+      <GoogleAnalytics GA_TRACKING_ID={GA_TRACKING_ID} />
 
       <main className={`${montserrat.variable} font-mont bg-light dark:bg-dark w-full min-h-screen`}>
         <NavBar />

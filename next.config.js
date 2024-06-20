@@ -5,19 +5,18 @@ module.exports = {
   async headers() {
     return [
       {
-        source: '/(.*)', // Applique les en-têtes à toutes les pages
+        source: '/(.*)',
         headers: [
           {
             key: 'Content-Security-Policy',
             value: `
               default-src 'self';
-              script-src 'self' https://www.google.com https://www.gstatic.com ${isProd ? '' : "'unsafe-inline' 'unsafe-eval'"};
+              script-src 'self' https://www.googletagmanager.com https://www.google-analytics.com ${isProd ? '' : "'unsafe-inline' 'unsafe-eval'"};
               style-src 'self' 'unsafe-inline';
               img-src 'self' data:;
               font-src 'self';
-              connect-src 'self' https://api.emailjs.com https://www.google.com https://www.recaptcha.net;
-              frame-src https://www.google.com https://www.recaptcha.net;
-            `.replace(/\n/g, ''), // Supprime les retours à la ligne pour éviter les erreurs
+              connect-src 'self' https://www.google-analytics.com;
+            `.replace(/\n/g, ''),
           },
           {
             key: 'X-Content-Type-Options',
