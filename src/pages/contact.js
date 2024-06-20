@@ -42,7 +42,9 @@ const ContactForm = () => {
         setIsLoading(true);
         setError(null);
 
-        const token = recaptchaRef.current.getValue();
+        const token = await recaptchaRef.current.executeAsync();
+        recaptchaRef.current.reset();
+
         if (!token) {
             setError("Veuillez compléter le reCAPTCHA.");
             setIsLoading(false);
@@ -62,8 +64,6 @@ const ContactForm = () => {
                 setIsLoading(false);
                 setError("Une erreur s'est produite, veuillez réessayer.");
             });
-
-        recaptchaRef.current.reset();
     };
 
     return (
@@ -96,6 +96,14 @@ const ContactForm = () => {
                             <div className='absolute top-0 -right-3 -z-10 w-[101%] h-[103%] rounded-[2rem] bg-dark dark:bg-light' />
                             {!isSubmitted ? (
                                 <form onSubmit={handleSubmit} className="w-full">
+                                    <div className="w-full flex justify-center mb-4">
+                                        <div className="pb-5 w-[100%] xs:w-[80%] sm:w-[70%]">
+                                            <ReCAPTCHA
+                                                ref={recaptchaRef}
+                                                sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
+                                            />
+                                        </div>
+                                    </div>
                                     <div className="mb-4 w-full">
                                         <label className="block text-gray-700 text-sm font-bold mb-2 dark:text-light" htmlFor="name">
                                             Nom
@@ -138,16 +146,8 @@ const ContactForm = () => {
                                             required
                                         />
                                     </div>
-                                    <div className="w-full flex sm:justify-center">
-                                        <div className=" pb-5 scale-100 md:scale-90 sm:scale-75 xs:scale-60">
-                                            <ReCAPTCHA
-                                                ref={recaptchaRef}
-                                                sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
-                                            />
-                                        </div>
-                                    </div>
-
                                     {error && <p className="text-red-500 text-xs italic">{error}</p>}
+
                                     <div className="flex items-center justify-center">
                                         <button
                                             type="submit"

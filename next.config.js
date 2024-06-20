@@ -15,8 +15,8 @@ module.exports = {
               style-src 'self' 'unsafe-inline';
               img-src 'self' data:;
               font-src 'self';
-              connect-src 'self' https://api.emailjs.com;
-              frame-src 'self' https://www.google.com https://www.recaptcha.net;
+              connect-src 'self' https://api.emailjs.com https://www.google.com https://www.recaptcha.net;
+              frame-src https://www.google.com https://www.recaptcha.net;
             `.replace(/\n/g, ''), // Supprime les retours à la ligne pour éviter les erreurs
           },
           {
