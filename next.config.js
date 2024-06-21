@@ -5,17 +5,17 @@ module.exports = {
   async headers() {
     return [
       {
-        source: '/(.*)', // Applique les en-têtes à toutes les pages
+        source: '/(.*)',
         headers: [
           {
             key: 'Content-Security-Policy',
             value: `
               default-src 'self';
-              script-src 'self' https://www.google.com https://www.gstatic.com https://cdn.iubenda.com https://www.googletagmanager.com 'unsafe-inline' 'unsafe-eval';
+              script-src 'self' https://www.google.com https://www.gstatic.com https://cdn.iubenda.com https://cs.iubenda.com https://www.googletagmanager.com ${isProd ? '' : "'unsafe-inline' 'unsafe-eval'"};
               style-src 'self' 'unsafe-inline';
               img-src 'self' data:;
               font-src 'self';
-              connect-src 'self' https://api.emailjs.com https://www.google.com https://www.recaptcha.net;
+              connect-src 'self' https://api.emailjs.com https://www.google.com https://www.recaptcha.net https://region1.google-analytics.com https://cs.iubenda.com;
               frame-src https://www.google.com https://www.recaptcha.net;
             `.replace(/\n/g, ''), // Supprime les retours à la ligne pour éviter les erreurs
           },

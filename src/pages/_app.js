@@ -1,21 +1,19 @@
-// pages/_app.js
 import NavBar from '@/components/NavBar';
-import Logo from '@/components/Logo';
 import '@/styles/globals.css';
 import { Montserrat } from "next/font/google";
 import Head from 'next/head';
+import Script from 'next/script';
 import Footer from '@/components/Footer';
 import { AnimatePresence } from 'framer-motion';
 import { useRouter } from 'next/router';
 import GoogleAnalytics from '@/components/GoogleAnalytics';
-import Script from 'next/script';
 
 const montserrat = Montserrat({
   subsets: ["latin"],
   variable: "--font-mont"
 });
 
-const GA_TRACKING_ID = 'G-VYGX0SP46J'; // Remplacez par votre propre ID de suivi
+const GA_TRACKING_ID = 'G-VYGX0SP46J';
 
 export default function App({ Component, pageProps }) {
   const router = useRouter();
@@ -28,7 +26,6 @@ export default function App({ Component, pageProps }) {
         <meta name="description" content="MonkeysDev - Développeur web freelance sur Nancy. Je réalise et vous accompagne dans la création de votre site internet." />
         <meta name="author" content="MonkeysDev" />
 
-        {/* Balises Open Graph pour Facebook et LinkedIn */}
         <meta property="og:title" content="MonkeysDev - Développeur Web à Nancy" />
         <meta property="og:description" content="Votre entreprise a une histoire unique. En tant que développeur web à Nancy, je crée des sites internet qui la racontent. Laissez votre marque faire la différence." />
         <meta property="og:image" content="/images/profile/MonkeyDevelopper_fade.png" />
@@ -40,9 +37,15 @@ export default function App({ Component, pageProps }) {
 
       <GoogleAnalytics GA_TRACKING_ID={GA_TRACKING_ID} />
 
-      <Script src="https://cs.iubenda.com/autoblocking/3678612.js" strategy="afterInteractive" />
-      <Script src="//cdn.iubenda.com/cs/iubenda_cs.js" charset="UTF-8" strategy="afterInteractive" />
-
+      <Script src="https://www.googletagmanager.com/gtag/js?id=G-VYGX0SP46J" strategy="afterInteractive" />
+      <Script id="google-analytics" strategy="afterInteractive">
+        {`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', '${GA_TRACKING_ID}');
+        `}
+      </Script>
       <Script id="iubenda-config" strategy="afterInteractive">
         {`
           var _iub = _iub || [];
@@ -68,6 +71,8 @@ export default function App({ Component, pageProps }) {
           };
         `}
       </Script>
+      <Script src="https://cs.iubenda.com/autoblocking/3678612.js" strategy="afterInteractive" />
+      <Script src="https://cdn.iubenda.com/cs/iubenda_cs.js" strategy="afterInteractive" async />
 
       <main className={`${montserrat.variable} font-mont bg-light dark:bg-dark w-full min-h-screen`}>
         <NavBar />
