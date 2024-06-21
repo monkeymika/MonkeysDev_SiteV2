@@ -8,6 +8,7 @@ import Footer from '@/components/Footer';
 import { AnimatePresence } from 'framer-motion';
 import { useRouter } from 'next/router';
 import GoogleAnalytics from '@/components/GoogleAnalytics';
+import Script from 'next/script';
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -34,48 +35,39 @@ export default function App({ Component, pageProps }) {
         <meta property="og:url" content="https://www.monkeysdev.fr" />
 
         <title>MonkeysDev</title>
-        <link rel="icon" href="/favicon.ico" />
-        <script
-          type="text/javascript"
-          src="https://cs.iubenda.com/autoblocking/3678612.js"
-          async
-        ></script>
-        <script
-          type="text/javascript"
-          src="//cdn.iubenda.com/cs/iubenda_cs.js"
-          charset="UTF-8"
-          async
-        ></script>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              var _iub = _iub || [];
-              _iub.csConfiguration = {
-                askConsentAtCookiePolicyUpdate: true,
-                floatingPreferencesButtonDisplay: "bottom-right",
-                lang: "fr",
-                perPurposeConsent: true,
-                siteId: 3678612,
-                whitelabel: false,
-                cookiePolicyId: 14120052,
-                cookiePolicyUrl: "https://www.monkeysdev.fr/politique-de-confidentialite",
-                banner: {
-                  acceptButtonDisplay: true,
-                  closeButtonDisplay: false,
-                  customizeButtonDisplay: true,
-                  explicitWithdrawal: true,
-                  listPurposes: true,
-                  position: "float-top-center",
-                  rejectButtonDisplay: true,
-                  showTitle: false
-                }
-              };
-            `
-          }}
-        ></script>
       </Head>
+      <link rel="icon" href="/favicon.ico" />
 
       <GoogleAnalytics GA_TRACKING_ID={GA_TRACKING_ID} />
+
+      <Script src="https://cs.iubenda.com/autoblocking/3678612.js" strategy="afterInteractive" />
+      <Script src="//cdn.iubenda.com/cs/iubenda_cs.js" charset="UTF-8" strategy="afterInteractive" />
+
+      <Script id="iubenda-config" strategy="afterInteractive">
+        {`
+          var _iub = _iub || [];
+          _iub.csConfiguration = {
+            "askConsentAtCookiePolicyUpdate": true,
+            "floatingPreferencesButtonDisplay": "bottom-right",
+            "lang": "fr",
+            "perPurposeConsent": true,
+            "siteId": 3678612,
+            "whitelabel": false,
+            "cookiePolicyId": 14120052,
+            "cookiePolicyUrl": "https://www.monkeysdev.fr/politique-de-confidentialite",
+            "banner": {
+              "acceptButtonDisplay": true,
+              "closeButtonDisplay": false,
+              "customizeButtonDisplay": true,
+              "explicitWithdrawal": true,
+              "listPurposes": true,
+              "position": "float-top-center",
+              "rejectButtonDisplay": true,
+              "showTitle": false
+            }
+          };
+        `}
+      </Script>
 
       <main className={`${montserrat.variable} font-mont bg-light dark:bg-dark w-full min-h-screen`}>
         <NavBar />
