@@ -7,6 +7,7 @@ import Footer from '@/components/Footer';
 import { AnimatePresence } from 'framer-motion';
 import { useRouter } from 'next/router';
 import GoogleAnalytics from '@/components/GoogleAnalytics';
+import { useEffect, useState } from 'react';
 
 const montserrat = Montserrat({
   subsets: ['latin'],
@@ -17,6 +18,14 @@ const GA_TRACKING_ID = 'G-VYGX0SP46J';
 
 export default function App({ Component, pageProps }) {
   const router = useRouter();
+  const [nonce, setNonce] = useState('');
+
+  useEffect(() => {
+    const nonceMetaTag = document.querySelector('meta[name="nonce"]');
+    if (nonceMetaTag) {
+      setNonce(nonceMetaTag.content);
+    }
+  }, []);
 
   return (
     <>
@@ -38,8 +47,8 @@ export default function App({ Component, pageProps }) {
 
       <GoogleAnalytics GA_TRACKING_ID={GA_TRACKING_ID} />
 
-      <Script src="https://www.googletagmanager.com/gtag/js?id=G-VYGX0SP46J" strategy="afterInteractive" />
-      <Script id="google-analytics" strategy="afterInteractive">
+      <Script src="https://www.googletagmanager.com/gtag/js?id=G-VYGX0SP46J" strategy="afterInteractive" nonce={nonce} />
+      <Script id="google-analytics" strategy="afterInteractive" nonce={nonce}>
         {`
           window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}

@@ -8,6 +8,7 @@ export default function Document() {
   return (
     <Html lang="en">
       <Head>
+        <meta name="nonce" content={nonce} />
         <Script
           src="https://cdn-cookieyes.com/client_data/999d53387ee35c02ae6292c9/script.js"
           strategy="beforeInteractive"
@@ -25,7 +26,7 @@ export default function Document() {
           `}
         </Script>
         <Main />
-        <NextScript />
+        <NextScript nonce={nonce} />
       </body>
     </Html>
   )
