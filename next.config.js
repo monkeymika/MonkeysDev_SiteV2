@@ -1,15 +1,11 @@
-const crypto = require('crypto');
+const { generateNonce, getNonce } = require('./nonce');
 
 const isProd = process.env.NODE_ENV === 'production';
-
-function generateNonce() {
-  return crypto.randomBytes(16).toString('base64');
-}
 
 const nextConfig = {
   reactStrictMode: true,
   async headers() {
-    const nonce = generateNonce();
+    const nonce = generateNonce(); // Génère le nonce ici
     return [
       {
         source: '/(.*)',

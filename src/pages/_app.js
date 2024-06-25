@@ -8,6 +8,7 @@ import { AnimatePresence } from 'framer-motion';
 import { useRouter } from 'next/router';
 import GoogleAnalytics from '@/components/GoogleAnalytics';
 import { useEffect, useState } from 'react';
+import { getNonce } from '/nonce';
 
 const montserrat = Montserrat({
   subsets: ['latin'],
@@ -18,14 +19,7 @@ const GA_TRACKING_ID = 'G-VYGX0SP46J';
 
 export default function App({ Component, pageProps }) {
   const router = useRouter();
-  const [nonce, setNonce] = useState('');
-
-  useEffect(() => {
-    const nonceMetaTag = document.querySelector('meta[name="nonce"]');
-    if (nonceMetaTag) {
-      setNonce(nonceMetaTag.content);
-    }
-  }, []);
+  const nonce = getNonce();
 
   return (
     <>
