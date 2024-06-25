@@ -20,7 +20,7 @@ const nextConfig = {
               default-src 'self';
               script-src 'self' https://www.google.com https://www.gstatic.com https://www.googletagmanager.com https://cdn-cookieyes.com 'nonce-${nonce}' ${isProd ? '' : "'unsafe-inline' 'unsafe-eval'"};
               style-src 'self' 'unsafe-inline';
-              img-src 'self' data:;
+              img-src 'self' data: https://cdn-cookieyes.com;
               font-src 'self';
               connect-src 'self' https://api.emailjs.com https://www.google.com https://www.recaptcha.net https://region1.google-analytics.com https://cdn-cookieyes.com https://log.cookieyes.com;
               frame-src 'self' https://www.google.com https://www.recaptcha.net;
