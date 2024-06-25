@@ -2,8 +2,12 @@ import { Html, Head, Main, NextScript } from 'next/document'
 import Script from 'next/script'
 import crypto from 'crypto';
 
-export default function Document() {
-  const nonce = crypto.randomBytes(16).toString('base64');
+function generateNonce() {
+  return crypto.randomBytes(16).toString('base64');
+}
+
+export default function Document(ctx) {
+  const nonce = generateNonce();
 
   return (
     <Html lang="en">
