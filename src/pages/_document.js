@@ -4,7 +4,12 @@ import Script from 'next/script'
 export default function Document() {
   return (
     <Html lang="en">
-      <Head />
+      <Head>
+        <Script
+          src="https://cdn-cookieyes.com/client_data/999d53387ee35c02ae6292c9/script.js"
+          strategy="beforeInteractive"
+        />
+      </Head>
       <body>
         <Script id='theme-switcher' strategy='beforeInteractive'>
           {`

@@ -7,8 +7,6 @@ import Footer from '@/components/Footer';
 import { AnimatePresence } from 'framer-motion';
 import { useRouter } from 'next/router';
 import GoogleAnalytics from '@/components/GoogleAnalytics';
-import { useEffect, useState } from 'react';
-import crypto from 'crypto';
 
 const montserrat = Montserrat({
   subsets: ['latin'],
@@ -19,11 +17,6 @@ const GA_TRACKING_ID = 'G-VYGX0SP46J';
 
 export default function App({ Component, pageProps }) {
   const router = useRouter();
-  const [nonce, setNonce] = useState('');
-
-  useEffect(() => {
-    setNonce(crypto.randomBytes(16).toString('base64'));
-  }, []);
 
   return (
     <>
@@ -45,20 +38,15 @@ export default function App({ Component, pageProps }) {
 
       <GoogleAnalytics GA_TRACKING_ID={GA_TRACKING_ID} />
 
-      {nonce && (
-        <>
-          <Script id="cookieyes" src="https://cdn-cookieyes.com/client_data/999d53387ee35c02ae6292c9/script.js" strategy="afterInteractive" nonce={nonce} />
-          <Script src="https://www.googletagmanager.com/gtag/js?id=G-VYGX0SP46J" strategy="afterInteractive" nonce={nonce} />
-          <Script id="google-analytics" strategy="afterInteractive" nonce={nonce}>
-            {`
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              gtag('js', new Date());
-              gtag('config', '${GA_TRACKING_ID}');
-            `}
-          </Script>
-        </>
-      )}
+      <Script src="https://www.googletagmanager.com/gtag/js?id=G-VYGX0SP46J" strategy="afterInteractive" />
+      <Script id="google-analytics" strategy="afterInteractive">
+        {`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', '${GA_TRACKING_ID}');
+        `}
+      </Script>
 
       <main className={`${montserrat.variable} font-mont bg-light dark:bg-dark w-full min-h-screen`}>
         <NavBar />
