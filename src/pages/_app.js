@@ -47,7 +47,7 @@ export default function App({ Component, pageProps }) {
 
       {nonce && (
         <>
-          <Script id="cookieyes" type="text/javascript" src="https://cdn-cookieyes.com/client_data/999d53387ee35c02ae6292c9/script.js"></Script>
+          <Script id="cookieyes" src="https://cdn-cookieyes.com/client_data/999d53387ee35c02ae6292c9/script.js" strategy="afterInteractive" nonce={nonce} />
           <Script src="https://www.googletagmanager.com/gtag/js?id=G-VYGX0SP46J" strategy="afterInteractive" nonce={nonce} />
           <Script id="google-analytics" strategy="afterInteractive" nonce={nonce}>
             {`

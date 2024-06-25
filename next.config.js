@@ -1,8 +1,15 @@
+const crypto = require('crypto');
+
 const isProd = process.env.NODE_ENV === 'production';
+
+function generateNonce() {
+  return crypto.randomBytes(16).toString('base64');
+}
 
 module.exports = {
   reactStrictMode: true,
   async headers() {
+    const nonce = generateNonce();
     return [
       {
         source: '/(.*)',
@@ -11,7 +18,7 @@ module.exports = {
             key: 'Content-Security-Policy',
             value: `
               default-src 'self';
-              script-src 'self' https://www.google.com https://www.gstatic.com https://cdn.iubenda.com https://cs.iubenda.com https://www.googletagmanager.com ${isProd ? '' : "'unsafe-inline' 'unsafe-eval'"};
+              script-src 'self' https://www.google.com https://www.gstatic.com https://cdn.iubenda.com https://cs.iubenda.com https://www.googletagmanager.com https://cdn-cookieyes.com 'nonce-${nonce}' ${isProd ? '' : "'unsafe-inline' 'unsafe-eval'"};
               style-src 'self' 'unsafe-inline';
               img-src 'self' data:;
               font-src 'self';
