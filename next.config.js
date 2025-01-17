@@ -1,11 +1,15 @@
-const { generateNonce, getNonce } = require('./nonce');
+const crypto = require('crypto');
+
+function generateNonce() {
+  return crypto.randomBytes(16).toString('base64');
+}
 
 const isProd = process.env.NODE_ENV === 'production';
 
 const nextConfig = {
   reactStrictMode: true,
   async headers() {
-    const nonce = generateNonce(); // Génère le nonce ici
+    const nonce = generateNonce();
     return [
       {
         source: '/(.*)',
@@ -22,7 +26,7 @@ const nextConfig = {
               frame-src 'self' https://www.google.com https://www.recaptcha.net;
               form-action 'self';
               base-uri 'self';
-            `.replace(/\n/g, ''), // Supprime les retours à la ligne pour éviter les erreurs
+            `.replace(/\n/g, ''),
           },
           {
             key: 'X-Frame-Options',

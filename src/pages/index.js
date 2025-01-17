@@ -8,10 +8,12 @@ import { LinkArrow } from '@/components/Icons';
 import HireMe from '@/components/HireMe';
 import lightBulb from '../../public/images/svgs/miscellaneous_icons_1.svg';
 import TransitionEffect from '@/components/TransitionEffect';
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 export default function Home() {
   return (
     <>
+      <SpeedInsights />
       <Head>
         <title>MonkeysDev - Développeur Web à Nancy</title>
         <meta charSet="UTF-8" />

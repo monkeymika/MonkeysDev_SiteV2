@@ -1,14 +1,18 @@
-import { Html, Head, Main, NextScript } from 'next/document'
-import Script from 'next/script'
-import { getNonce } from '/nonce';
+import { Html, Head, Main, NextScript } from 'next/document';
+import Script from 'next/script';
+import crypto from 'crypto';
 
-export default function Document() {
-  const nonce = getNonce();
+function generateNonce() {
+  return crypto.randomBytes(16).toString('base64');
+}
+
+export default function Document(ctx) {
+  const nonce = generateNonce();
 
   return (
     <Html lang="en">
       <Head>
-        <meta name="nonce" content={nonce} />
+        <meta name="nonce" content={nonce} /> {/* Ajout de la meta tag nonce */}
         <Script
           src="https://cdn-cookieyes.com/client_data/999d53387ee35c02ae6292c9/script.js"
           strategy="beforeInteractive"
@@ -29,5 +33,5 @@ export default function Document() {
         <NextScript nonce={nonce} />
       </body>
     </Html>
-  )
+  );
 }

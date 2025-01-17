@@ -8,7 +8,6 @@ import { AnimatePresence } from 'framer-motion';
 import { useRouter } from 'next/router';
 import GoogleAnalytics from '@/components/GoogleAnalytics';
 import { useEffect, useState } from 'react';
-import { getNonce } from '/nonce';
 
 const montserrat = Montserrat({
   subsets: ['latin'],
@@ -19,7 +18,14 @@ const GA_TRACKING_ID = 'G-VYGX0SP46J';
 
 export default function App({ Component, pageProps }) {
   const router = useRouter();
-  const nonce = getNonce();
+  const [nonce, setNonce] = useState('');
+
+  useEffect(() => {
+    const nonceMetaTag = document.querySelector('meta[name="nonce"]');
+    if (nonceMetaTag) {
+      setNonce(nonceMetaTag.content);
+    }
+  }, []);
 
   return (
     <>
@@ -29,6 +35,7 @@ export default function App({ Component, pageProps }) {
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="description" content="MonkeysDev - Développeur web freelance sur Nancy. Je réalise et vous accompagne dans la création de votre site internet." />
         <meta name="author" content="MonkeysDev" />
+        <meta name="nonce" content={nonce} /> {/* Ajout de la meta tag nonce */}
 
         <meta property="og:title" content="MonkeysDev - Développeur Web à Nancy" />
         <meta property="og:description" content="Votre entreprise a une histoire unique. En tant que développeur web à Nancy, je crée des sites internet qui la racontent. Laissez votre marque faire la différence." />
