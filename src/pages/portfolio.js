@@ -11,6 +11,9 @@ import project3 from "../../public/images/projects/splashScreen_Hire.png";
 import project4 from "../../public/images/projects/splashScreen_AuPetitGourmet.png";
 import project5 from "../../public/images/projects/splasScreen_Toshokan.png";
 import project6 from "../../public/images/projects/splashScreen_VandoeuvreBoxe.png";
+import project7 from "../../public/images/projects/SplashScreen_UmiFruits.png";
+import project8 from "../../public/images/projects/SplashScreen_LaPizz.png";
+import project9 from "../../public/images/projects/SplashScreen_M2T.png";
 import { motion } from "framer-motion";
 import TransitionEffect from "@/components/TransitionEffect";
 
@@ -166,6 +169,36 @@ const Portfolio = () => {
                     />
 
                     <div className="grid grid-cols-12 gap-24 gap-y-32 xl:gap-x-16 lg:gap-x-8 md:gap-y-24 sm:gap-x-0">
+                        <div className="col-span-12">
+                            <FeaturedProject
+                                title="M2T"
+                                img={project9}
+                                summary="Un site professionnel pour une entreprise spécialisée dans la réparation et l'entretien de machines et équipements mécaniques agricoles, BTP et manutention, offrant une présentation claire des services et des réalisations."
+                                link="https://m2t-toul.fr/"
+                                github="/"
+                                type="Réparation de machines et équipements mécaniques"
+                            />
+                        </div>
+                        <div className="col-span-6 sm:col-span-12">
+                            <Project
+                                title="Umi-Fruits"
+                                img={project7}
+                                summary="Un site professionnel dédié à l'import-export de fruits et légumes, mettant en avant les produits frais et les services de logistique avec une interface intuitive et moderne."
+                                link="https://umi-fruits.com/"
+                                github="/"
+                                type="Import-export de fruits et légumes"
+                            />
+                        </div>
+                        <div className="col-span-6 sm:col-span-12">
+                            <Project
+                                title="La Pizz'"
+                                img={project8}
+                                summary="Un site vitrine pour une pizzeria, avec des fonctionnalités de commande en ligne, des informations sur les spécialités, et une présentation attrayante pour séduire les amateurs de pizzas."
+                                link="https://lapizz-ludres.fr/"
+                                github="/"
+                                type="Pizzeria"
+                            />
+                        </div>
                         <div className="col-span-12">
                             <FeaturedProject
                                 title="Jeson Rich Peinture & Décoration"
